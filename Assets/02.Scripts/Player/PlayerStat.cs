@@ -12,4 +12,9 @@ public class PlayerStat
     public float AttackSpeed;
     public float MaxStamina;
     public float CurrentStamina;
+    public float StaminaRecovery    = 20f;
+    public float StaminaJumpCost    = 20f;
+    public float StaminaAttackCost  = 10f;
+    public float StaminaRunCost     = 10f;
+    public float Damage;
 }

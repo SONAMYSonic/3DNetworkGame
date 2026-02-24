@@ -288,6 +288,72 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &789083531225387557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3480151219372392667}
+  - component: {fileID: 8839818161796611906}
+  - component: {fileID: 851518006969105882}
+  m_Layer: 0
+  m_Name: DamageCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3480151219372392667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789083531225387557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3576107474419935921}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8839818161796611906
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789083531225387557}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0.75, z: 0.7}
+--- !u!114 &851518006969105882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789083531225387557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6af6edf93e469a448490970210c774a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponHitAbility
 --- !u!1 &824296980453644822
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +994,6 @@ GameObject:
   - component: {fileID: 3576107474419935921}
   - component: {fileID: 8536200474381732606}
   - component: {fileID: 8758216326950267962}
-  - component: {fileID: 7690136476019925362}
   - component: {fileID: 6711050001094710153}
   - component: {fileID: 8459203890031223921}
   - component: {fileID: 5586290166063239597}
@@ -937,6 +1002,7 @@ GameObject:
   - component: {fileID: 7948989386572490661}
   - component: {fileID: 4563850411065444127}
   - component: {fileID: 7822777470901189029}
+  - component: {fileID: 2347737479926744179}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -953,7 +1019,7 @@ Transform:
   m_GameObject: {fileID: 4960476260123280791}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.514, y: -8.605, z: 13.642}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -962,6 +1028,7 @@ Transform:
   - {fileID: 3901165279363264977}
   - {fileID: 3123468081207328410}
   - {fileID: 2108169254519285150}
+  - {fileID: 3480151219372392667}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &8536200474381732606
@@ -1002,7 +1069,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 8ba20b0c99f092646ac0541d7e325d73, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1011,20 +1078,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7690136476019925362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960476260123280791}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f141628068b9b4493f69f797f003b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AutoPlayAnimations: 1
-  PaletteOverride: {fileID: 0}
 --- !u!114 &6711050001094710153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1037,8 +1090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fbea1a3c7d73bc4d8ddaa2f3dda9622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMoveAbility
-  _staminaDecreaseRate: 10
-  _staminaRecoveryRate: 5
 --- !u!114 &8459203890031223921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,6 +1139,11 @@ MonoBehaviour:
     AttackSpeed: 2
     MaxStamina: 100
     CurrentStamina: 100
+    StaminaRecovery: 20
+    StaminaJumpCost: 20
+    StaminaAttackCost: 10
+    StaminaRunCost: 10
+    Damage: 10
 --- !u!114 &6648629631694012665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,13 +1159,14 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 2
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 5528205837053906693}
   - {fileID: 7948989386572490661}
   - {fileID: 4563850411065444127}
-  sceneViewId: 1
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &7948989386572490661
@@ -1175,6 +1232,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusUIAbility
   _healthGauge: {fileID: 5336624018896292082}
   _staminaGauge: {fileID: 8124708701321703933}
+--- !u!114 &2347737479926744179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960476260123280791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d13664705a34e44b82b1a93173a1c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponAbility
+  _playerWeaponCollider: {fileID: 8839818161796611906}
 --- !u!1 &5176737988996181882
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,9 +9,9 @@ public class PlayerMoveAbility : PlayerAbility
     private CharacterController _characterController;
     private Animator _animator;
 
-    [Header("Stamina")]
-    [SerializeField] private float _staminaDecreaseRate = 10f; // 초당 소모량
-    [SerializeField] private float _staminaRecoveryRate = 5f;  // 초당 회복량
+    private bool _isRunning = false;
+    public bool IsRunning => _isRunning;
+    public bool IsJumping => !_characterController.isGrounded;
 
     // 1. 중력을 적용하세요.
     // 2. 스페이스바를 누르면 점프하게 해주세요.
@@ -44,31 +44,33 @@ public class PlayerMoveAbility : PlayerAbility
 
         _animator.SetFloat("Speed", direction.magnitude);
 
-        _yVeocity -= GRAVITY * Time.deltaTime;
+        if (_characterController.isGrounded) _yVeocity = -0.5f;
+        else _yVeocity -= GRAVITY * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded && _owner.Stat.CurrentStamina >= _owner.Stat.StaminaJumpCost)
         {
+            _owner.Stat.CurrentStamina -= _owner.Stat.StaminaJumpCost;
             _yVeocity = _owner.Stat.JumpPower;
         }
 
         direction.y = _yVeocity;
 
-        // 달리기/걷기 처리: PlayerStat의 CurrentStamina/MaxStamina 사용
+        _isRunning = false;
         float targetSpeed = _owner.Stat.MoveSpeed;
 
         if (Input.GetKey(KeyCode.LeftShift) && _owner.Stat.CurrentStamina > 0f && direction.magnitude > 0f)
         {
-            // 달리기
+            _isRunning = true;
             targetSpeed = _owner.Stat.RunSpeed;
-            _owner.Stat.CurrentStamina -= _staminaDecreaseRate * Time.deltaTime;
-        }
-        else
-        {
-            // 스태미나 회복
-            _owner.Stat.CurrentStamina += _staminaRecoveryRate * Time.deltaTime;
+            _owner.Stat.CurrentStamina -= _owner.Stat.StaminaRunCost * Time.deltaTime;
         }
 
-        // 스태미나값을 0..Max 범위로 제한
+        // 점프/달리기 중이 아닐 때 스태미나 회복
+        if (!IsJumping && !_isRunning)
+        {
+            _owner.Stat.CurrentStamina += _owner.Stat.StaminaRecovery * Time.deltaTime;
+        }
+
         _owner.Stat.CurrentStamina = Mathf.Clamp(_owner.Stat.CurrentStamina, 0f, _owner.Stat.MaxStamina);
 
         // 실제 이동 호출 (중복 제거)
