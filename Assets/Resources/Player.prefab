@@ -998,11 +998,10 @@ GameObject:
   - component: {fileID: 8459203890031223921}
   - component: {fileID: 5586290166063239597}
   - component: {fileID: 5528205837053906693}
-  - component: {fileID: 6648629631694012665}
-  - component: {fileID: 7948989386572490661}
-  - component: {fileID: 4563850411065444127}
-  - component: {fileID: 7822777470901189029}
   - component: {fileID: 2347737479926744179}
+  - component: {fileID: 7822777470901189029}
+  - component: {fileID: 6648629631694012665}
+  - component: {fileID: 4563850411065444127}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1144,6 +1143,33 @@ MonoBehaviour:
     StaminaAttackCost: 10
     StaminaRunCost: 10
     Damage: 10
+--- !u!114 &2347737479926744179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960476260123280791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d13664705a34e44b82b1a93173a1c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponAbility
+  _playerWeaponCollider: {fileID: 8839818161796611906}
+--- !u!114 &7822777470901189029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960476260123280791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f647ff85b639eb74babb18b0ff1b50b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusUIAbility
+  _healthGauge: {fileID: 5336624018896292082}
+  _staminaGauge: {fileID: 8124708701321703933}
 --- !u!114 &6648629631694012665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,27 +1190,10 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5528205837053906693}
-  - {fileID: 7948989386572490661}
   - {fileID: 4563850411065444127}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7948989386572490661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960476260123280791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
-  m_UseLocal: 1
 --- !u!114 &4563850411065444127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1201,50 +1210,23 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 1
-    SynchronizeType: 0
-    Name: Blend
-  - Type: 1
     SynchronizeType: 2
     Name: Speed
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Taunt1
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Taunt2
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: Taunt3
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsDead
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
---- !u!114 &7822777470901189029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960476260123280791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f647ff85b639eb74babb18b0ff1b50b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusUIAbility
-  _healthGauge: {fileID: 5336624018896292082}
-  _staminaGauge: {fileID: 8124708701321703933}
---- !u!114 &2347737479926744179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960476260123280791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d13664705a34e44b82b1a93173a1c49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponAbility
-  _playerWeaponCollider: {fileID: 8839818161796611906}
 --- !u!1 &5176737988996181882
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class PlayerWeaponHitAbility : PlayerAbility
     private void OnTriggerEnter(Collider other)
     {
         if (!_owner.PhotonView.IsMine) return;
+        if (_owner.IsDead) return;
         
         if (other.transform == _owner.transform) return;
 
@@ -19,6 +20,10 @@ public class PlayerWeaponHitAbility : PlayerAbility
             
             // 상대방의 TakeDamage를 RPC로 호출한다.
             PlayerController otherPlayer = other.GetComponentInParent<PlayerController>();
+            
+            // 상대가 죽은 상태면 대미지를 적용하지 않는다.
+            if (otherPlayer != null && otherPlayer.IsDead) return;
+            
             otherPlayer.PhotonView.RPC(nameof(damageable.TakeDamage), RpcTarget.All, _owner.Stat.Damage);
             
             _owner.GetAbility<PlayerWeaponColliderAbility>().DisableWeaponCollider();

@@ -32,6 +32,9 @@ public class PlayerMoveAbility : PlayerAbility
     {
         // 내꺼가 아니면 건들지 않는다!
         if (!_owner.PhotonView.IsMine) return;
+        
+        // 죽으면 멈춰!
+        if (_owner.IsDead) return;
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -41,6 +44,8 @@ public class PlayerMoveAbility : PlayerAbility
         direction.Normalize();
 
         direction = Camera.main.transform.TransformDirection(direction);
+        direction.y = 0f;
+        direction.Normalize();
 
         _animator.SetFloat("Speed", direction.magnitude);
 
@@ -74,6 +79,8 @@ public class PlayerMoveAbility : PlayerAbility
         _owner.Stat.CurrentStamina = Mathf.Clamp(_owner.Stat.CurrentStamina, 0f, _owner.Stat.MaxStamina);
 
         // 실제 이동 호출 (중복 제거)
-        _characterController.Move(direction * Time.deltaTime * targetSpeed);
+        Vector3 moveVec = direction * Time.deltaTime * targetSpeed;
+        Debug.Log($"[Move] h={h}, v={v}, dir={direction}, moveVec={moveVec}, pos={transform.position}");
+        _characterController.Move(moveVec);
     }
 }

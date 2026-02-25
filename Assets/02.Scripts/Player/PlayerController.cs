@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
@@ -8,22 +9,77 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
 {
     public PhotonView PhotonView;
     public PlayerStat Stat;
-
+    
+    public bool IsDead {get; private set;}
+    private Animator _animator;
+    
     private void Awake()
     {
         PhotonView = GetComponent<PhotonView>();
     }
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
     
+    private void Update() 
+    {
+        if (!PhotonView.IsMine) return;
+        
+        if (!IsDead && transform.position.y < -20f)
+        {
+            Die();
+        }
+    }
+
     [PunRPC]
     public void TakeDamage(float damage)
     {
+        if (IsDead) return;
+        
         Stat.CurrentHealth -= damage;
         
         if (Stat.CurrentHealth <= 0)
         {
-            // 죽음 처리
-            Debug.Log($"{gameObject.name}이(가) 죽었습니다.");
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        IsDead = true;
+        _animator.SetBool("IsDead", true);
+
+        if (PhotonView.IsMine)
+        {
+            StartCoroutine(RespawnAfterDelay(5f));
+        }
+    }
+    
+    private IEnumerator RespawnAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        // 랜덤 스폰 포인트 선택
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        Transform sp = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform;
+        
+        // 캐릭터컨트롤러를 끄고, 위치 이동, 다시 켜기
+        // 캐컨이 켜진 상태에서는 transform.position을 직접 변경하는게 막혀있음
+        CharacterController cc = GetComponent<CharacterController>();
+        cc.enabled = false;
+        transform.position = sp.position;
+        transform.rotation = sp.rotation;
+        cc.enabled = true;
+        
+        // 스탯 복구
+        Stat.CurrentHealth = Stat.MaxHealth;
+        Stat.CurrentStamina = Stat.MaxStamina;
+        
+        // 죽음 해제
+        IsDead = false;
+        _animator.SetBool("IsDead", false);
     }
 
     // 데이터 동기화를 위한 데이터 읽기(전송), 쓰기(수신) 메서드
