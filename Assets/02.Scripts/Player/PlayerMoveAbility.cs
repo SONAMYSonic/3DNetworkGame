@@ -78,9 +78,6 @@ public class PlayerMoveAbility : PlayerAbility
 
         _owner.Stat.CurrentStamina = Mathf.Clamp(_owner.Stat.CurrentStamina, 0f, _owner.Stat.MaxStamina);
 
-        // 실제 이동 호출 (중복 제거)
-        Vector3 moveVec = direction * Time.deltaTime * targetSpeed;
-        Debug.Log($"[Move] h={h}, v={v}, dir={direction}, moveVec={moveVec}, pos={transform.position}");
-        _characterController.Move(moveVec);
+        _characterController.Move(direction * Time.deltaTime * targetSpeed);
     }
 }

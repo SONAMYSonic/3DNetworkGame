@@ -81,19 +81,7 @@ public class PhotonServerManager : MonoBehaviourPunCallbacks
             Debug.Log($"{player.Value.NickName} : {player.Value.ActorNumber}");
         }
         
-        // 리소스 폴더에서 "Player" 이름을 가진 프리팹을 생성(인스턴스화)하고, 서버에 등록도한다.
-        //   ㄴ 리소스 폴더는 나쁜것이다. 그러기 때문에 다른 방법을 찾아보거라..
-        
-        // 씬에 있는 모든 스폰 포인트를 태그로 찾기
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-
-        // 랜덤으로 하나 선택
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform;
-
-        Debug.Log($"[Spawn] 스폰 위치: {spawnPoint.position}");
-
-        // 선택된 스폰 포인트의 위치/회전으로 플레이어 생성
-        PhotonNetwork.Instantiate("Player", spawnPoint.position, spawnPoint.rotation);
+        // 플레이어 생성은 PhotonRoomManager.OnJoinedRoom()에서 처리
     }
 
     // 랜덤방 입장에 실패하면 자동으로 호출되는 콜백 함수

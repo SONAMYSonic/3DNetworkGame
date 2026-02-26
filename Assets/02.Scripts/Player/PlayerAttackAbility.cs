@@ -20,6 +20,9 @@ public class PlayerAttackAbility : PlayerAbility
         // 내꺼가 아니면 건들지 않는다!
         if (!_owner.PhotonView.IsMine) return;
 
+        // 죽으면 공격도 멈춰!
+        if (_owner.IsDead) return;
+
         _attackTimer += Time.deltaTime;
 
         if (Input.GetMouseButton(0) && _owner.Stat.CurrentStamina >= _owner.Stat.StaminaAttackCost && _attackTimer >= _owner.Stat.AttackSpeed)

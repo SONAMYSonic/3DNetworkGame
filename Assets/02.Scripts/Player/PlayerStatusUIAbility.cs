@@ -8,8 +8,6 @@ public class PlayerStatusUIAbility : PlayerAbility
     
     private void Update()
     {
-        if (!_owner.PhotonView.IsMine) return;
-
         _healthGauge.fillAmount = _owner.Stat.CurrentHealth / _owner.Stat.MaxHealth;
         _staminaGauge.fillAmount = _owner.Stat.CurrentStamina / _owner.Stat.MaxStamina;
     }

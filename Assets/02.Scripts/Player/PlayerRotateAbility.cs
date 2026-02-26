@@ -25,6 +25,9 @@ public class PlayerRotateAbility : PlayerAbility
         // 내꺼가 아니면 건들지 않는다!
         if (!_owner.PhotonView.IsMine) return;
 
+        // 죽으면 회전도 멈춰!
+        if (_owner.IsDead) return;
+
         _mx += Input.GetAxis("Mouse X") * _owner.Stat.RotationSpeed * Time.deltaTime;
         _my += Input.GetAxis("Mouse Y") * _owner.Stat.RotationSpeed * Time.deltaTime;
         

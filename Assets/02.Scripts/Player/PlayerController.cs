@@ -3,14 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 // 플레이어 대표로서 외부와의 소통 또는 어빌리티들을 관리하는 역할
 public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
 {
     public PhotonView PhotonView;
     public PlayerStat Stat;
+
+    public int Score = 0;
     
-    public bool IsDead {get; private set;}
+    // 죽을 때 점수 오브젝트를 3~5개 드랍한다
+    // 점수 오브젝트를 먹으면 하나당 100점이 오른다.
+    
+    public bool IsDead { get; set; }
     private Animator _animator;
     
     private void Awake()
@@ -34,7 +40,7 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
     }
 
     [PunRPC]
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, int attackerActorNumber)
     {
         if (IsDead) return;
         
@@ -43,6 +49,7 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
         if (Stat.CurrentHealth <= 0)
         {
             Die();
+            PhotonRoomManager.Instance.OnPlayerDeath(attackerActorNumber);
         }
     }
 
@@ -53,10 +60,17 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
 
         if (PhotonView.IsMine)
         {
-            StartCoroutine(RespawnAfterDelay(5f));
+            // 리스폰 코루틴을 먼저 시작 (아이템 생성 실패해도 리스폰은 보장)
+            StartCoroutine(RespawnAfterDelay(Stat.RespawnTime));
+
+            // 아이템 생성 - ItemObjectFactory를 통해 방장에게 요청
+            if (ItemObjectFactory.Instance != null)
+            {
+                ItemObjectFactory.Instance.RequestMakeScroreItems(transform.position + new Vector3(0, 0.5f, 0));
+            }
         }
     }
-    
+
     private IEnumerator RespawnAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -91,20 +105,20 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
         // 읽기/쓰기 모드
         if (stream.IsWriting)
         {
-            Debug.Log("전송중....");
             // 이 PhotonView의 데이터를 보내줘야 하는 상황
             stream.SendNext(Stat.CurrentHealth);
             stream.SendNext(Stat.CurrentStamina);
-            
+            stream.SendNext(IsDead);
+
             // 주고받을 데이터가 엄청 많다면 -> JSON으로 변환해서 한 번에 보내는 방법
             // 박싱/언박싱 vs JSON 변환 성능 : 데이터가 커지면 박싱/언박싱이 더 느리다.
         }
         else if (stream.IsReading)
         {
-            Debug.Log("수신중....");
             // 이 PhotonView의 데이터를 받아야 하는 상황
             Stat.CurrentHealth = (float)stream.ReceiveNext();
             Stat.CurrentStamina = (float)stream.ReceiveNext();
+            IsDead = (bool)stream.ReceiveNext();
         }
     }
 

@@ -41,6 +41,11 @@ MonoBehaviour:
   - RespawnSpaceship
   - PlayAttackAnimation
   - TakeDamage
+  - DropScoreItems
+  - DeleteScoreItem
+  - RPC_DropScoreItems
+  - RPC_RequestDeleteItem
+  - RPC_RequestDropItems
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

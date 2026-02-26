@@ -17,4 +17,5 @@ public class PlayerStat
     public float StaminaAttackCost  = 10f;
     public float StaminaRunCost     = 10f;
     public float Damage;
+    public float RespawnTime = 3f;
 }

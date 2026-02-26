@@ -14,6 +14,10 @@ public class PlayerWeaponHitAbility : PlayerAbility
         {
             // damageable.TakeDamage(_owner.Stat.Damage);
             
+            // 포톤에서는 Room 안에서 플레이어마다 고유 식별자(ID)인 ActorNumber를 가지고 있다.
+            int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+            // int actorNumber = _owner.PhotonView.Owner.ActorNumber;
+            
             // RPC로 대미지를 적용해야지 모든 클라이언트에서 대미지가 적용됨
             // _owner.PhotonView.RPC(nameof(damageable.TakeDamage), RpcTarget.All, _owner.Stat.Damage);
             // ㄴ _owner은 내 플레이어이므로 상대방 플레이어의 PhotonView가 아니다. 따라서 상대방 플레이어의 PhotonView를 찾아야 한다.
@@ -24,7 +28,7 @@ public class PlayerWeaponHitAbility : PlayerAbility
             // 상대가 죽은 상태면 대미지를 적용하지 않는다.
             if (otherPlayer != null && otherPlayer.IsDead) return;
             
-            otherPlayer.PhotonView.RPC(nameof(damageable.TakeDamage), RpcTarget.All, _owner.Stat.Damage);
+            otherPlayer.PhotonView.RPC(nameof(damageable.TakeDamage), RpcTarget.All, _owner.Stat.Damage, PhotonNetwork.LocalPlayer.ActorNumber);
             
             _owner.GetAbility<PlayerWeaponColliderAbility>().DisableWeaponCollider();
             
