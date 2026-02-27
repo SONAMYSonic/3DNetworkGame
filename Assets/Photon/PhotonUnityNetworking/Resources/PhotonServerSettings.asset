@@ -46,6 +46,8 @@ MonoBehaviour:
   - RPC_DropScoreItems
   - RPC_RequestDeleteItem
   - RPC_RequestDropItems
+  - RPC_NotifyMonsterKill
+  - RPC_PlayAnimationTrigger
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

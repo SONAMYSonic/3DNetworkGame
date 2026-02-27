@@ -7,31 +7,28 @@ public class PlayerWeaponHitAbility : PlayerAbility
     {
         if (!_owner.PhotonView.IsMine) return;
         if (_owner.IsDead) return;
-        
+
         if (other.transform == _owner.transform) return;
 
         if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            // damageable.TakeDamage(_owner.Stat.Damage);
-            
-            // 포톤에서는 Room 안에서 플레이어마다 고유 식별자(ID)인 ActorNumber를 가지고 있다.
-            int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-            // int actorNumber = _owner.PhotonView.Owner.ActorNumber;
-            
-            // RPC로 대미지를 적용해야지 모든 클라이언트에서 대미지가 적용됨
-            // _owner.PhotonView.RPC(nameof(damageable.TakeDamage), RpcTarget.All, _owner.Stat.Damage);
-            // ㄴ _owner은 내 플레이어이므로 상대방 플레이어의 PhotonView가 아니다. 따라서 상대방 플레이어의 PhotonView를 찾아야 한다.
-            
-            // 상대방의 TakeDamage를 RPC로 호출한다.
+            // 상대방의 PhotonView를 찾는다 (Player든 Monster든 공통)
+            PhotonView targetView = other.GetComponentInParent<PhotonView>();
+            if (targetView == null) return;
+
+            // 플레이어인 경우 죽은 상태 체크
             PlayerController otherPlayer = other.GetComponentInParent<PlayerController>();
-            
-            // 상대가 죽은 상태면 대미지를 적용하지 않는다.
             if (otherPlayer != null && otherPlayer.IsDead) return;
-            
-            otherPlayer.PhotonView.RPC(nameof(damageable.TakeDamage), RpcTarget.All, _owner.Stat.Damage, PhotonNetwork.LocalPlayer.ActorNumber);
-            
+
+            // 몬스터인 경우 죽은 상태 체크
+            MonsterController monster = other.GetComponentInParent<MonsterController>();
+            if (monster != null && monster.IsDead) return;
+
+            // 상대방의 TakeDamage를 RPC로 호출한다 (Player, Monster 모두 동작)
+            targetView.RPC(nameof(damageable.TakeDamage), RpcTarget.All,
+                _owner.Stat.Damage, PhotonNetwork.LocalPlayer.ActorNumber);
+
             _owner.GetAbility<PlayerWeaponColliderAbility>().DisableWeaponCollider();
-            
         }
     }
 }

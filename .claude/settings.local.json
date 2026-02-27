@@ -3,7 +3,9 @@
     "allow": [
       "Bash(git stash:*)",
       "mcp__unityMCP__read_console",
-      "mcp__unityMCP__set_active_instance"
+      "mcp__unityMCP__set_active_instance",
+      "mcp__Desktop_Commander__read_file",
+      "Bash(git status:*)"
     ]
   }
 }
