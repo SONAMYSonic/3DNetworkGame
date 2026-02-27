@@ -189,7 +189,14 @@ public class MonsterController : MonoBehaviour, IPunObservable, IDamageable
 
     private IEnumerator RespawnAfterDelay()
     {
-        yield return new WaitForSeconds(Stat.RespawnTime);
+        // 죽은 후 잠시 대기 (사망 애니메이션 재생)
+        yield return new WaitForSeconds(2f);
+
+        // 모델 숨기기
+        PhotonView.RPC(nameof(RPC_SetVisible), RpcTarget.All, false);
+
+        // 리스폰 대기
+        yield return new WaitForSeconds(Stat.RespawnTime - 2f);
 
         // 스탯 초기화
         Stat.CurrentHealth = Stat.MaxHealth;
@@ -202,8 +209,25 @@ public class MonsterController : MonoBehaviour, IPunObservable, IDamageable
         _navMeshAgent.enabled = true;
         _navMeshAgent.isStopped = false;
 
+        // 모델 다시 보이기
+        PhotonView.RPC(nameof(RPC_SetVisible), RpcTarget.All, true);
+
         // FSM 리셋
         _fsm.ResetToIdle();
+    }
+
+    [PunRPC]
+    private void RPC_SetVisible(bool visible)
+    {
+        foreach (var renderer in GetComponentsInChildren<Renderer>())
+        {
+            renderer.enabled = visible;
+        }
+        // 콜라이더도 같이 끄기 (사라진 상태에서 충돌 방지)
+        foreach (var col in GetComponentsInChildren<Collider>())
+        {
+            col.enabled = visible;
+        }
     }
 
     // ─────────────────────────────────────────────

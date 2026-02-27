@@ -25,6 +25,9 @@ public class MonsterFSM : MonoBehaviour
     // 피격 후 복귀할 상태
     private EMonsterState _stateBeforeHit;
 
+    // 공격 1회 판정용 플래그
+    private bool _hasDealtDamage;
+
     private void Awake()
     {
         _controller = GetComponent<MonsterController>();
@@ -156,9 +159,10 @@ public class MonsterFSM : MonoBehaviour
 
         _stateTimer += Time.deltaTime;
 
-        // 공격 애니메이션 시간 (약 0.6초에 데미지 판정)
-        if (_stateTimer >= 0.6f && _stateTimer < 0.7f)
+        // 공격 애니메이션 중 데미지 판정 (1회만)
+        if (!_hasDealtDamage && _stateTimer >= 0.6f)
         {
+            _hasDealtDamage = true;
             _controller.DealDamageToNearbyPlayers();
         }
 
@@ -252,6 +256,7 @@ public class MonsterFSM : MonoBehaviour
 
             case EMonsterState.Attack:
                 _agent.isStopped = true;
+                _hasDealtDamage = false;
                 // 랜덤 공격 애니메이션
                 _controller.PlayAnimationTrigger("Attack");
                 break;

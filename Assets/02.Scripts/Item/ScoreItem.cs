@@ -9,7 +9,7 @@ public class ScoreItem : MonoBehaviourPun
     private void OnTriggerEnter(Collider other)
     {
         // 플레이어만 먹을 수 있음
-        PlayerController player = other.GetComponent<PlayerController>();
+        PlayerController player = other.GetComponentInParent<PlayerController>();
         if (player == null) return;
 
         // 내 캐릭터만 처리 (다른 사람 화면에서 내가 먹는 건 무시)
