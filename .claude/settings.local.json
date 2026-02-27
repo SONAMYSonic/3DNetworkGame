@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "mcp__unityMCP__read_console",
+      "mcp__unityMCP__set_active_instance"
     ]
   }
 }
