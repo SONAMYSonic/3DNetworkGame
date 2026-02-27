@@ -119,6 +119,7 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
             Stat.CurrentHealth = (float)stream.ReceiveNext();
             Stat.CurrentStamina = (float)stream.ReceiveNext();
             IsDead = (bool)stream.ReceiveNext();
+            _animator.SetBool("IsDead", IsDead);
         }
     }
 

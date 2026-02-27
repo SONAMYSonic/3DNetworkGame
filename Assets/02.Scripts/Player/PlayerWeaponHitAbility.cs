@@ -5,8 +5,6 @@ public class PlayerWeaponHitAbility : PlayerAbility
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Hit: {other.name}, damageable: {other.GetComponentInParent<IDamageable>()}");
-
         if (!_owner.PhotonView.IsMine) return;
         if (_owner.IsDead) return;
 
