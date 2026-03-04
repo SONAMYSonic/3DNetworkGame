@@ -47,7 +47,8 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
         if (Stat.CurrentHealth <= 0)
         {
             Die();
-            PhotonRoomManager.Instance.OnPlayerDeath(attackerActorNumber);
+            // PhotonView.Owner: 이 오브젝트의 소유자 (= 실제 피해자)
+            PhotonRoomManager.Instance.OnPlayerDeath(attackerActorNumber, PhotonView.Owner.NickName);
         }
     }
 
