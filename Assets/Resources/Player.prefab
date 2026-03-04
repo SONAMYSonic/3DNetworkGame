@@ -1145,7 +1145,6 @@ MonoBehaviour:
     StaminaRunCost: 10
     Damage: 10
     RespawnTime: 3
-  Score: 0
 --- !u!114 &2347737479926744179
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f46f2788da773468e24036022ca823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoneItem
-  _score: 100
+  _stoneScore: 100
   _lifeTime: 15
 --- !u!65 &-3605947660243538672
 BoxCollider:

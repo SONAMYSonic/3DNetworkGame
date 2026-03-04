@@ -5,7 +5,7 @@ using Photon.Pun;
 // 플레이어가 트리거에 닿으면 점수를 획득하고, 방장에게 삭제를 요청한다.
 public class StoneItem : MonoBehaviour
 {
-    [SerializeField] private int _score = 100;
+    [SerializeField] private int _stoneScore = 100;
     [SerializeField] private float _lifeTime = 15f; // 일정 시간 후 자동 삭제
 
     private PhotonView _photonView;
@@ -51,7 +51,7 @@ public class StoneItem : MonoBehaviour
         _isCollected = true;
 
         // 점수 추가
-        player.Score += _score;
+        ScoreManager.Instance.AddScore(_stoneScore);
 
         // ItemObjectFactory를 통해 방장에게 삭제 요청
         ItemObjectFactory.Instance.RequestDeleteScoreItem(_photonView.ViewID);

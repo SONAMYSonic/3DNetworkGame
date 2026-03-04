@@ -163,15 +163,10 @@ public class MonsterController : MonoBehaviour, IPunObservable, IDamageable
     {
         if (PhotonNetwork.CurrentRoom.Players.TryGetValue(attackerActorNumber, out var attacker))
         {
-            // 공격자 점수 추가
+            // 공격자 점수 추가 (로컬 플레이어만 처리)
             if (PhotonNetwork.LocalPlayer.ActorNumber == attackerActorNumber)
             {
-                // 로컬 플레이어가 공격자라면 점수 추가
-                PlayerController localPlayer = FindLocalPlayer();
-                if (localPlayer != null)
-                {
-                    localPlayer.Score += 200;
-                }
+                ScoreManager.Instance.AddScore(200);
             }
 
             PhotonRoomManager.Instance?.OnMonsterKill(attacker.NickName);

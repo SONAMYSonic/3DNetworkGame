@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScoreItem : MonoBehaviourPun
 {
-    private int _score = 100;
+    private int _itemScore = 100;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,7 +19,7 @@ public class ScoreItem : MonoBehaviourPun
         if (player.IsDead) return;
 
         // 점수 추가
-        player.Score += _score;
+        ScoreManager.Instance.AddScore(_itemScore);
 
         // ItemObjectFactory를 통해 방장에게 코인 삭제 요청
         ItemObjectFactory.Instance.RequestDeleteScoreItem(photonView.ViewID);

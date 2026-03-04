@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
 {
     public PhotonView PhotonView;
     public PlayerStat Stat;
-
-    public int Score = 0;
     
     // 죽을 때 점수 오브젝트를 3~5개 드랍한다
     // 점수 오브젝트를 먹으면 하나당 100점이 오른다.
@@ -57,6 +55,7 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
     {
         IsDead = true;
         _animator.SetBool("IsDead", true);
+        ScoreManager.Instance.DeathScore();
 
         if (PhotonView.IsMine)
         {
