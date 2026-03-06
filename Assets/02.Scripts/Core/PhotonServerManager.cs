@@ -61,9 +61,6 @@ public class PhotonServerManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("로비 접속 완료!");
         Debug.Log(PhotonNetwork.InLobby);
-
-        // 랜덤 방 입장 시도
-        PhotonNetwork.JoinRandomRoom();
     }
     
     // 방 입장에 성공하면 자동으로 호출되는 콜백 함수
@@ -88,7 +85,8 @@ public class PhotonServerManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log($"랜덤 방 입장에 실패했습니다: {returnCode} - {message}");
-
+        
+        /*
         // 랜덤 룸 입장에 실패하면.. 룸이 하나도 없는 것이니... 룸을 만들자!
         
         // 룸 옵션 정의
@@ -99,6 +97,7 @@ public class PhotonServerManager : MonoBehaviourPunCallbacks
         
         // 룸 만들기 
         PhotonNetwork.CreateRoom("test", roomOptions);
+        */
     }
     
     // 방 입장에 실패하면 자동으로 호출되는 콜백 함수

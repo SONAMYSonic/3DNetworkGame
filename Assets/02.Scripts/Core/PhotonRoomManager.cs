@@ -2,6 +2,7 @@ using System;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PhotonRoomManager : MonoBehaviourPunCallbacks
 {
@@ -33,13 +34,10 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         _room = PhotonNetwork.CurrentRoom;
+
+        SceneManager.LoadScene("GameScene");
         
         OnDataChanged?.Invoke();
-        
-        // 랜덤 스폰 포인트에서 플레이어 생성
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-        Transform sp = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform;
-        PhotonNetwork.Instantiate("Player", sp.position, sp.rotation);
     }
     
     // 새로운 플레이어
