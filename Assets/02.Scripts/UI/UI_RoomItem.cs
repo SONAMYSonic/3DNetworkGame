@@ -1,4 +1,4 @@
-using System;
+using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
@@ -36,5 +36,20 @@ public class UI_RoomItem : MonoBehaviour
     private void EnterRoom()
     {
         if (_roomInfo == null) return;
+
+        // 로비에서 닉네임 입력 필드를 찾아 닉네임 설정
+        UI_Lobby lobby = FindObjectOfType<UI_Lobby>();
+        if (lobby != null)
+        {
+            string nickname = lobby.NicknameInputField.text;
+            if (string.IsNullOrEmpty(nickname))
+            {
+                Debug.LogWarning("닉네임을 입력해주세요.");
+                return;
+            }
+            PhotonNetwork.NickName = nickname;
+        }
+
+        PhotonNetwork.JoinRoom(_roomInfo.Name);
     }
 }

@@ -40,6 +40,15 @@ public class MonsterFSM : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient) return;
         if (_controller.IsDead) return;
 
+        // 마스터 클라이언트가 전환되면 NavMeshAgent가 꺼져있을 수 있다 (Start에서 비마스터는 비활성화)
+        if (!_agent.enabled)
+        {
+            _agent.enabled = true;
+        }
+
+        // NavMesh 위에 배치되지 않은 경우 스킵 (리스폰 중 등)
+        if (!_agent.isOnNavMesh) return;
+
         _stat = _controller.Stat;
 
         switch (CurrentState)

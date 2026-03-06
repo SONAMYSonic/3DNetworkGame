@@ -22,14 +22,16 @@ public class ScoreManager : MonoBehaviourPunCallbacks
         Instance = this;
     }
 
-    public override void OnJoinedRoom()
+    private void Start()
     {
-        // 내 점수 0으로 초기화
-        _score = 0;
-        Refresh();
-
-        // 이미 방에 있는 플레이어들의 점수를 로드
-        LoadExistingPlayerScores();
+        // OnJoinedRoom은 LobbyScene에서 호출되므로, GameScene에 있는 ScoreManager는 받을 수 없다.
+        // 따라서 Start()에서 방에 이미 들어와 있는 상태라면 초기화한다.
+        if (PhotonNetwork.InRoom)
+        {
+            _score = 0;
+            Refresh();
+            LoadExistingPlayerScores();
+        }
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)

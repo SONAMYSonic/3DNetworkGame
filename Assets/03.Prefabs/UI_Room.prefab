@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8770664806985104562}
   - component: {fileID: 7854170982762713108}
   m_Layer: 5
-  m_Name: RoomBangJang
+  m_Name: RoomOwnerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 3361165460872447226}
   - component: {fileID: 8876947012088776507}
   m_Layer: 5
-  m_Name: RoomPeople
+  m_Name: RoomPlayerNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB4DC\uB8E8\uC640"
+  m_text: "\uADF8 \uC0AC\uB78C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac46d3da1a1e8704b9165f92d9c7f741, type: 2}
   m_sharedMaterial: {fileID: 6638799600896293405, guid: ac46d3da1a1e8704b9165f92d9c7f741, type: 2}
@@ -444,6 +444,8 @@ GameObject:
   - component: {fileID: 867700441159773200}
   - component: {fileID: 2897504636039687880}
   - component: {fileID: 4604367575354045354}
+  - component: {fileID: 192564979747860133}
+  - component: {fileID: 272613769220651747}
   m_Layer: 5
   m_Name: UI_Room
   m_TagString: Untagged
@@ -537,3 +539,63 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &192564979747860133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868418982857871887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ee87dc040101143af685519ef6814c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_RoomItem
+  RoomNameTextUI: {fileID: 4498041746698094365}
+  RoomOwnerNameUI: {fileID: 7854170982762713108}
+  RoomPlayerCountUI: {fileID: 8876947012088776507}
+  RoomEnterButton: {fileID: 272613769220651747}
+--- !u!114 &272613769220651747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868418982857871887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2897504636039687880}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []

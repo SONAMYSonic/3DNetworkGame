@@ -20,10 +20,6 @@ public class PlayerController : MonoBehaviour, IPunObservable, IDamageable
     private void Awake()
     {
         PhotonView = GetComponent<PhotonView>();
-    }
-
-    private void Start()
-    {
         _animator = GetComponent<Animator>();
     }
     

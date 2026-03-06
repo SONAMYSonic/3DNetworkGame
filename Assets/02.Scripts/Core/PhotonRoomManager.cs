@@ -2,7 +2,6 @@ using System;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PhotonRoomManager : MonoBehaviourPunCallbacks
 {
@@ -35,8 +34,11 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
     {
         _room = PhotonNetwork.CurrentRoom;
 
-        SceneManager.LoadScene("GameScene");
-        
+        // 모든 클라이언트가 PhotonNetwork.LoadLevel로 씬 전환
+        // SceneManager.LoadScene과 달리 Photon 메시지 큐를 일시 정지하여
+        // 씬 로딩 중 PhotonView 충돌/파괴를 방지한다.
+        PhotonNetwork.LoadLevel("GameScene");
+
         OnDataChanged?.Invoke();
     }
     
